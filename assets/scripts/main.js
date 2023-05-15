@@ -5,8 +5,8 @@ function getCartCount() {
 }
 
 function showCart() {
-  const cartSection = document.getElementById('cart-section');
-  const cartList = document.getElementById('cart-list');
+  const cartSection = document.querySelector('#cart-section');
+  const cartList = document.querySelector('#cart-list');
 
   cartList.innerHTML = '';
 
@@ -20,7 +20,7 @@ function showCart() {
 
     const productPrice = document.createElement('span');
     productPrice.className = 'product-price';
-    productPrice.textContent = `$${item.price}`;
+    productPrice.textContent = `${item.price}`;
 
     const productQuantity = document.createElement('div');
     productQuantity.className = 'product-quantity';
@@ -64,19 +64,16 @@ function showCart() {
     cartItem.appendChild(productPrice);
     cartItem.appendChild(productQuantity);
     cartItem.appendChild(removeItemButton);
-
     cartList.appendChild(cartItem);
   });
 
-  const totalPrice = document.getElementById('total-price');
+  const totalPrice = document.querySelector('#total-price');
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  totalPrice.textContent = `Total Price: $${total}`;
-
+  totalPrice.textContent = `Total Price: ${total}`;
   cartSection.classList.add('show');
 }
-
 function hideCart() {
-  const cartSection = document.getElementById('cart-section');
+  const cartSection = document.querySelector('#cart-section');
   cartSection.classList.remove('show');
 }
 
@@ -92,13 +89,12 @@ function addToCart(name, price) {
       quantity: 1
     });
   }
-
   updateCartCount();
   saveCartToLocalStorage();
 }
 
 function updateCartCount() {
-  const cartCount = document.getElementById('cart-count');
+  const cartCount = document.querySelector('#cart-count');
   cartCount.textContent = getCartCount();
 }
 
@@ -111,7 +107,6 @@ function removeCartItem(name) {
 
 function updateCartItemQuantity(name, quantity) {
   const item = cart.find(item => item.name === name);
-
   if (item) {
     if (quantity <= 0) {
       const itemIndex = cart.indexOf(item);
@@ -120,26 +115,24 @@ function updateCartItemQuantity(name, quantity) {
       item.quantity = quantity;
     }
   }
-
   showCart();
   saveCartToLocalStorage();
 }
 
-  function clearCart() {
+function clearCart() {
     cart = [];
     updateCartCount();
     hideCart();
     saveCartToLocalStorage();
   }
   
-  function saveCartToLocalStorage() {
+function saveCartToLocalStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
   
-  function loadCartFromLocalStorage() {
-    const cartData = localStorage.getItem('cart');
-  
-    if (cartData) {
+function loadCartFromLocalStorage() {
+  const cartData = localStorage.getItem('cart');
+  if (cartData) {
       cart = JSON.parse(cartData);
       updateCartCount();
     }
