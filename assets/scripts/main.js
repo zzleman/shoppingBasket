@@ -20,7 +20,7 @@ function showCart() {
 
     const productPrice = document.createElement('span');
     productPrice.className = 'product-price';
-    productPrice.textContent = `${item.price}`;
+    productPrice.textContent = `$${item.price}`;
 
     const productQuantity = document.createElement('div');
     productQuantity.className = 'product-quantity';
@@ -69,7 +69,7 @@ function showCart() {
 
   const totalPrice = document.querySelector('#total-price');
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  totalPrice.textContent = `Total Price: ${total}`;
+  totalPrice.textContent = `Total Price: $${total}`;
   cartSection.classList.add('show');
 }
 function hideCart() {
